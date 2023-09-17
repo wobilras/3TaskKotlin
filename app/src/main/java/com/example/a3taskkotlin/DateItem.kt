@@ -1,3 +1,3 @@
 package com.example.a3taskkotlin
 
-data class DateItem(val title: String)
+data class DateItem(val time: String, val date: String)
