@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 
 class CameraService(val preview: androidx.camera.core.Preview){
-    private val TAG = "CameraService"
 
     private fun getImageCapture(): ImageCapture{
         return ImageCapture.Builder()
@@ -29,7 +28,7 @@ class CameraService(val preview: androidx.camera.core.Preview){
                     context as LifecycleOwner, getCameraSelector(), preview, getImageCapture())
 
             } catch(exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
+                Log.e("CameraService", "Use case binding failed", exc)
             }
 
         }, ContextCompat.getMainExecutor(context))

@@ -1,6 +1,7 @@
 package com.example.a3taskkotlin
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
@@ -22,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        CoroutineScope(Dispatchers.IO).launch {
-            initMassiveArray()
-        }
+        //CoroutineScope(Dispatchers.IO).launch {
+        //    initMassiveArray()
+        //}
         if (checkCameraPermission() and checkStoragePermission()){
             CameraService(getPreview()).startCamera(this)
         }
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity() {
             saveCurrentDateTime()
         }
         binding.buttonList.setOnClickListener {
-
+            val intent = Intent(this@MainActivity, ListActivity::class.java)
+            startActivity(intent)
         }
     }
     private fun checkCameraPermission(): Boolean {
@@ -57,11 +59,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPreview(): Preview {
-        val viewFinder: PreviewView = findViewById(R.id.viewFinder)
         return Preview.Builder()
             .build()
             .also {
-                it.setSurfaceProvider(viewFinder.surfaceProvider)
+                it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
             }
     }
 

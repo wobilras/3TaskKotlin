@@ -16,28 +16,14 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        init()
     }
     fun init(){
         binding.apply {
             rcListView.layoutManager = LinearLayoutManager(this@ListActivity)
-            adapter = DateAdapter(readDatesFromFile())
+            adapter = DateAdapter(this@ListActivity)
             rcListView.adapter = adapter
+            adapter.loadData()
         }
-    }
-    private fun readDatesFromFile(): List<Date> {
-        val file = File(getExternalFilesDir(null), "photos/date")
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
-        val dates = mutableListOf<Date>()
-
-        if (file.exists()) {
-            val lines = file.readText().trim().split("\n")
-            for (line in lines) {
-                val trimmedLine = line.trim()
-                val date = dateFormat.parse(trimmedLine)
-                date?.let { dates.add(date) }
-            }
-        }
-
-        return dates.sorted()
     }
 }
