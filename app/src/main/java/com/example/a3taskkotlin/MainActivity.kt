@@ -1,12 +1,12 @@
 package com.example.a3taskkotlin
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.Preview
 import androidx.camera.view.PreviewView
-import androidx.core.content.ContextCompat
 import com.example.a3taskkotlin.databinding.MainActivityBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         val btnShot: Button = findViewById(R.id.btn_take_photo)
         btnShot.setOnClickListener {
             saveCurrentDateTime()
+        }
+        binding.buttonList.setOnClickListener {
+
         }
     }
     private fun checkCameraPermission(): Boolean {

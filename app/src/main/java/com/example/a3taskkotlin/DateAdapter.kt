@@ -5,6 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a3taskkotlin.databinding.ListItemBinding
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -30,6 +33,19 @@ class DateAdapter(private val dateList: List<Date>): RecyclerView.Adapter<DateAd
         val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
         val dateString = dateFormat.format(date)
         holder.bind(dateString)
+    }
+    fun loadData() {
+        val file = File(context.getExternalFilesDir("photos"), "date.txt")
+        if (file.exists()) {
+            dateList.clear()
+            val reader = BufferedReader(FileReader(file))
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                dateList.add(line!!)
+            }
+            reader.close()
+            notifyDataSetChanged()
+        }
     }
 
 }
